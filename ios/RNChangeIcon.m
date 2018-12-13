@@ -1,4 +1,6 @@
 
+#import "React/RCTLog.h"
+
 #import "RNChangeIcon.h"
 
 #define defaultIcon  @"__default__"

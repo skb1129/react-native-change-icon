@@ -4,8 +4,9 @@
 #else
 #import <React/RCTBridgeModule.h>
 #endif
+#import <UIKit/UIKit.h>
 
-@interface RNChangeIcon : NSObject <RCTBridgeModule>
+@interface RNChangeIcon : NSObject <RCTBridgeModule, UIApplicationDelegate>
 
 @end
   
