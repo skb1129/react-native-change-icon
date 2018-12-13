@@ -3,4 +3,8 @@ import { NativeModules } from 'react-native';
 
 const { RNChangeIcon } = NativeModules;
 
-export default RNChangeIcon;
+export default {
+  changeIcon(iconName) {
+    RNChangeIcon.changeIcon(iconName);
+  }
+};
