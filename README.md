@@ -3,7 +3,7 @@
 
 Change Application Icon Programmatically.
 - [x] iOS
-- [ ] Android
+- [x] Android
 
 ## Getting started
 
@@ -22,7 +22,7 @@ Change Application Icon Programmatically.
 3. In XCode, in the project navigator, select your project. Add `libRNChangeIcon.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 4. Run your project (`Cmd+R`)<
 
-#### Android (Currently Not Functional)
+#### Android
 
 1. Open up `android/app/src/main/java/[...]/MainApplication.java`
   - Add `import com.reactlibrary.RNChangeIconPackage;` to the imports at the top of the file
@@ -48,15 +48,75 @@ Change Application Icon Programmatically.
 ![Xcode Directory](images/App_Icons.png)
 
 4. Open the **Info.plist** file.
-5. Add *Icon files (iOS 5)* to the *Information Property List*.
-6. Add *CFBundleAlternateIcons* as a dictionary to the *Icon files (iOS 5)*, it is used for alternative icons.
-7. Add dictionaries under *CFBundleAlternateIcons* named as your icon names in **App Icons** group.
-8. For each dictionary, two properties, *UIPrerenderedIcon* and *CFBundleIconFiles* need to be configured.
-9. Set the type of *UIPrerenderedIcon* to *String* and its value to *NO*.
-10. Set the type of *CFBundleIconFiles* to *Array* and set its first key, *Item 0*'s type to *String* and its value to the corresponding icon names.
+5. Add `Icon files (iOS 5)` to the **Information Property List**.
+6. Add `CFBundleAlternateIcons` as a dictionary to the `Icon files (iOS 5)`, it is used for alternative icons.
+7. Add dictionaries under `CFBundleAlternateIcons` named as your icon names in **App Icons** group.
+8. For each dictionary, two properties, `UIPrerenderedIcon` and `CFBundleIconFiles` need to be configured.
+9. Set the type of `UIPrerenderedIcon` to `String` and its value to `NO`.
+10. Set the type of `CFBundleIconFiles` to `Array` and set its first key, `Item 0`'s type to `String` and its value to the corresponding icon names.
 11. After all these steps, your **Info.plist** file should look like:
 
 ![Info.plist](images/Info.plist.png)
+
+#### Android
+
+1. Add all the icons you need inside your project's `android/app/src/main/res/mipmap-*` directories:
+
+![Android Directory](images/Android_Icons.png)
+
+2. Modify your `AndroidManifest.xml` file's `<application>` tag as following:
+```xml
+<application
+	android:name=".MainApplication"
+	android:label="@string/app_name"
+	android:icon="@mipmap/checked"
+	android:allowBackup="false"
+	android:theme="@style/AppTheme">
+	<activity android:name=".MainActivity" />
+	<activity-alias
+		android:name="com.example.MainActivitychecked"
+		android:enabled="true"
+		android:icon="@mipmap/checked"
+		android:targetActivity=".MainActivity">
+		<intent-filter>
+			<action android:name="android.intent.action.MAIN" />
+			<category android:name="android.intent.category.LAUNCHER" />
+		</intent-filter>
+	</activity-alias>
+	<activity-alias
+		android:name="com.example.MainActivitycancel"
+		android:enabled="false"
+		android:icon="@mipmap/cancel"
+		android:targetActivity=".MainActivity">
+		<intent-filter>
+			<action android:name="android.intent.action.MAIN" />
+			<category android:name="android.intent.category.LAUNCHER" />
+		</intent-filter>
+	</activity-alias>
+	<activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+</application>
+```
+You can create more `<activity-alias>` tags to make more alternate icons.
+*Note that the name in <activity-alias> should be "com.packageName.MainActivity%", where `%` is the icon name.*
+
+3. Open the `MainApplication.java` file.
+4. Create a static `ICONS` variable inside the `MainApplication` class. Example:
+```java
+public static List<String> ICONS = Arrays.<String>asList("checked", "cancel");
+```
+5. Pass all the icon names you have setup in the `AndroidManifest.xml` to `asList()` in the above line.
+6. Pass `BuildConfig.APPLICATION_ID` and `MainApplication.ICONS` to `new RNChangeIconPackage()` inside the `getPackages()` function.
+```java
+@Override
+protected List<ReactPackage> getPackages() {
+	return Arrays.<ReactPackage>asList(
+		new MainReactPackage(),
+		new RNChangeIconPackage(BuildConfig.APPLICATION_ID, MainApplication.ICONS)
+	);
+}
+```
+
+**Note that all the icon names must be in lowercase and only limited to alphabets `a-z`**
 
 Now you can use the following code to change application icon:
 
@@ -66,3 +126,5 @@ import { changeIcon } from 'react-native-change-icon';
 // Pass the name of icon as string to the "changeIcon" function
 changeIcon('icon_name');
 ```
+
+**Please refer to the Example app for demo on implementation**
