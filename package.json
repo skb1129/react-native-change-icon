@@ -2,16 +2,26 @@
 {
   "name": "react-native-change-icon",
   "version": "1.0.0",
-  "description": "",
+  "description": "React Native Change Application Icon Programmatically.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "react-native"
+    "react-native",
+    "icon",
+    "change",
+    "programmatically",
+    "dynamic"
   ],
-  "author": "",
-  "license": "",
+  "author": "Surya Kant Bansal <skb1129@yahoo.com>",
+  "homepage": "https://github.com/skb1129/react-native-change-icon",
+  "nativePackage": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skb1129/react-native-change-icon.git"
+  },
+  "license": "MIT",
   "peerDependencies": {
     "react-native": ">=0.55.4"
   }
