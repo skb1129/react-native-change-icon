@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
-  public static List<String> ICONS = Arrays.<String>asList("Checked", "Cancel");
+  public static List<String> ICONS = Arrays.<String>asList("checked", "cancel");
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override

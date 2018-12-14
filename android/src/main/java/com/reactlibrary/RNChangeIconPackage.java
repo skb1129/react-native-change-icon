@@ -15,7 +15,7 @@ public class RNChangeIconPackage implements ReactPackage {
     public String packageName;
     public List<String> iconNames;
 
-    public GoogleFitPackage(String packageName, List<String> iconNames) {
+    public RNChangeIconPackage(String packageName, List<String> iconNames) {
         this.packageName = packageName;
         this.iconNames = iconNames;
     }
