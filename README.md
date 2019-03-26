@@ -100,18 +100,13 @@ You can create more `<activity-alias>` tags to make more alternate icons.
 *Note that the name in <activity-alias> should be "com.packageName.MainActivity%", where `%` is the icon name.*
 
 3. Open the `MainApplication.java` file.
-4. Create a static `ICONS` variable inside the `MainApplication` class. Example:
-```java
-public static List<String> ICONS = Arrays.<String>asList("checked", "cancel");
-```
-5. Pass all the icon names you have setup in the `AndroidManifest.xml` to `asList()` in the above line.
-6. Pass `BuildConfig.APPLICATION_ID` and `MainApplication.ICONS` to `new RNChangeIconPackage()` inside the `getPackages()` function.
+4. Pass `BuildConfig.APPLICATION_ID` to `new RNChangeIconPackage()` inside the `getPackages()` function.
 ```java
 @Override
 protected List<ReactPackage> getPackages() {
 	return Arrays.<ReactPackage>asList(
 		new MainReactPackage(),
-		new RNChangeIconPackage(BuildConfig.APPLICATION_ID, MainApplication.ICONS)
+		new RNChangeIconPackage(BuildConfig.APPLICATION_ID)
 	);
 }
 ```
@@ -123,8 +118,9 @@ Now you can use the following code to change application icon:
 ```javascript
 import { changeIcon } from 'react-native-change-icon';
 
-// Pass the name of icon as string to the "changeIcon" function
-changeIcon('icon_name');
+// Pass the name of icon to be enabled and the name of icon to
+// be disabled as string to the "changeIcon" function
+changeIcon('icon_name', 'disable_icon_name');
 ```
 
 **Please refer to the Example app for demo on implementation**
