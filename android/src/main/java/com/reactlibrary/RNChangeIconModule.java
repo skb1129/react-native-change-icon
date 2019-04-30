@@ -30,6 +30,7 @@ public class RNChangeIconModule extends ReactContextBaseJavaModule {
         if (activity == null) return;
         if (this.componentClass == null) this.componentClass = activity.getComponentName().getClassName();
         String activeClass = this.packageName + ".MainActivity" + enableIcon;
+        if (this.componentClass.equals(activeClass)) return;
         activity.getPackageManager().setComponentEnabledSetting(
                 new ComponentName(this.packageName, activeClass),
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
