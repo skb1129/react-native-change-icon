@@ -7,17 +7,17 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { changeIcon } from 'react-native-change-icon';
 
 export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => changeIcon('checked', 'cancel')}>
+        <TouchableOpacity onPress={() => changeIcon('checked')}>
           <Text style={styles.button}>SWITCH TO CHECKED ICON</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => changeIcon('cancel', 'checked')}>
+        <TouchableOpacity onPress={() => changeIcon('cancel')}>
           <Text style={styles.button}>SWITCH TO CANCEL ICON</Text>
         </TouchableOpacity>
       </View>

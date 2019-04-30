@@ -118,9 +118,8 @@ Now you can use the following code to change application icon:
 ```javascript
 import { changeIcon } from 'react-native-change-icon';
 
-// Pass the name of icon to be enabled and the name of icon to
-// be disabled as string to the "changeIcon" function
-changeIcon('icon_name', 'disable_icon_name');
+// Pass the name of icon to be enabled
+changeIcon('icon_name');
 ```
 
 **Please refer to the Example app for demo on implementation**
