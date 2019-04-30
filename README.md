@@ -1,6 +1,8 @@
 
 # React Native Change Icon
 
+[![npm version](https://badge.fury.io/js/react-native-change-icon.svg)](https://badge.fury.io/js/react-native-change-icon)
+
 Change Application Icon Programmatically.
 - [x] iOS
 - [x] Android
