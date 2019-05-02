@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.Promise;
 
 public class RNChangeIconModule extends ReactContextBaseJavaModule {
 
@@ -25,12 +26,19 @@ public class RNChangeIconModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void changeIcon(String enableIcon) {
+    public void changeIcon(String enableIcon, Promise promise) {
         final Activity activity = getCurrentActivity();
-        if (activity == null) return;
+        if (activity == null || enableIcon == null || enableIcon.isEmpty()) {
+            promise.reject("Icon string is empty.");
+            return;
+        }
         if (this.componentClass == null) this.componentClass = activity.getComponentName().getClassName();
         String activeClass = this.packageName + ".MainActivity" + enableIcon;
-        if (this.componentClass.equals(activeClass)) return;
+        if (this.componentClass.equals(activeClass)) {
+            promise.reject("Icon already in use.");
+            return;
+        }
+        promise.resolve(true);
         activity.getPackageManager().setComponentEnabledSetting(
                 new ComponentName(this.packageName, activeClass),
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
