@@ -27,9 +27,10 @@ RCT_REMAP_METHOD(changeIcon, iconName:(NSString *)iconName resolver:(RCTPromiseR
         return;
     }
 
+    resolve(@(YES));
+
     // Custom icon
     [[UIApplication sharedApplication] setAlternateIconName:iconName completionHandler:^(NSError * _Nullable error) {
-        resolve(@(YES));
         RCTLog(@"%@", [error description]);
     }];
 }
