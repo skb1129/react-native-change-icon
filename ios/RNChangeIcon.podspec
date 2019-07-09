@@ -6,10 +6,8 @@ Pod::Spec.new do |s|
   s.name         = "RNChangeIcon"
   s.version      = package["version"]
   s.summary      = package["description"]
-  s.description  = <<-DESC
-                  RNChangeIcon
-                   DESC
-  s.homepage     = package["repository"]["baseUrl"]
+  s.description  = package["description"]
+  s.homepage     = package["homepage"]
   s.license      = package["license"]
   s.author       = { "author" => package["author"]["email"] }
   s.platform     = :ios, "7.0"
