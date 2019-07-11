@@ -68,38 +68,50 @@ Change Application Icon Programmatically.
 
 2. Modify your `AndroidManifest.xml` file's `<application>` tag as following:
 ```xml
-<application
-	android:name=".MainApplication"
-	android:label="@string/app_name"
-	android:icon="@mipmap/checked"
-	android:allowBackup="false"
-	android:theme="@style/AppTheme">
-	<activity android:name=".MainActivity" />
-	<activity-alias
-		android:name="com.example.MainActivitychecked"
-		android:enabled="true"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+	<application
+		android:name=".MainApplication"
+		android:label="@string/app_name"
 		android:icon="@mipmap/checked"
-		android:targetActivity=".MainActivity">
-		<intent-filter>
-			<action android:name="android.intent.action.MAIN" />
-			<category android:name="android.intent.category.LAUNCHER" />
-		</intent-filter>
-	</activity-alias>
-	<activity-alias
-		android:name="com.example.MainActivitycancel"
-		android:enabled="false"
-		android:icon="@mipmap/cancel"
-		android:targetActivity=".MainActivity">
-		<intent-filter>
-			<action android:name="android.intent.action.MAIN" />
-			<category android:name="android.intent.category.LAUNCHER" />
-		</intent-filter>
-	</activity-alias>
-	<activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-</application>
+		android:allowBackup="false"
+		android:theme="@style/AppTheme">
+
+		<activity android:name=".MainActivity" />
+
+		<activity-alias
+			android:name="com.example.MainActivitychecked"
+			android:enabled="true"
+			android:icon="@mipmap/checked"
+			android:targetActivity=".MainActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity-alias>
+
+		<activity-alias
+			android:name="com.example.MainActivitycancel"
+			android:enabled="false"
+			android:icon="@mipmap/cancel"
+			android:targetActivity=".MainActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity-alias>
+
+		<activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+
+	</application>
+
+</manifest>
 ```
 You can create more `<activity-alias>` tags to make more alternate icons.
-*Note that the name in <activity-alias> should be "com.packageName.MainActivity%", where `%` is the icon name.*
+*Note that the name in <activity-alias> should be "com.{package_name}.MainActivity%", where `%` is the icon name.*
 
 3. Open the `MainApplication.java` file.
 4. Pass `BuildConfig.APPLICATION_ID` to `new RNChangeIconPackage()` inside the `getPackages()` function.
@@ -123,5 +135,7 @@ import { changeIcon } from 'react-native-change-icon';
 // Pass the name of icon to be enabled
 changeIcon('icon_name');
 ```
+
+`changeIcon` function returns a promise. The promise is resolved only when the icon is changed.
 
 **Please refer to the Example app for demo on implementation**
