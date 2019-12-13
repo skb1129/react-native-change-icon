@@ -9,7 +9,7 @@ Change Application Icon Programmatically.
 
 ## Getting started
 
-`$ yarn add install react-native-change-icon`
+`$ yarn add react-native-change-icon`
 
 ### Mostly automatic installation (Recommended)
 
