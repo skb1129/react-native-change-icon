@@ -13,9 +13,9 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "7.0"
   s.source       = { :git => "#{package["repository"]["baseUrl"]}.git", :tag => "#{s.version}" }
 
-  s.source_files = "RNChangeIcon/**/*.{h,m}"
+  s.source_files = "*.{h,m}"
   s.requires_arc = true
 
   s.dependency "React"
 end
-  
+
