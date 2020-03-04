@@ -1,7 +1,7 @@
 import { NativeModules } from 'react-native';
 
-const { RNChangeIcon } = NativeModules;
+const { ChangeIcon } = NativeModules;
 
-const changeIcon = enableIcon => RNChangeIcon.changeIcon(enableIcon);
+const changeIcon = enableIcon => ChangeIcon.changeIcon(enableIcon);
 
 export { changeIcon };
