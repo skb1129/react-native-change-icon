@@ -14,7 +14,7 @@ public class ChangeIconPackage implements ReactPackage {
 
     private String packageName;
 
-    public RNChangeIconPackage(String packageName) {
+    public ChangeIconPackage(String packageName) {
         this.packageName = packageName;
     }
 
