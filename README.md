@@ -89,6 +89,7 @@ Change Application Icon Programmatically.
 You can create more `<activity-alias>` tags to make more alternate icons.
 *Note that the name in <activity-alias> should be "com.{package_name}.MainActivity%", where `%` is the icon name.*
 
+**NOTE: Steps 3 & 4 only required for React-Native Version < 60**
 3. Open the `MainApplication.java` file.
 4. Pass `BuildConfig.APPLICATION_ID` to `new ChangeIconPackage()` inside the `getPackages()` function.
 ```java
