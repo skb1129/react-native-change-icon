@@ -34,6 +34,7 @@ target 'example' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+
   pod 'react-native-change-icon', :path => '../node_modules/react-native-change-icon'
 
   target 'exampleTests' do
