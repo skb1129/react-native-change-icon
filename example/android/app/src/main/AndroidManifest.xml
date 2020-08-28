@@ -24,7 +24,7 @@
       </activity>
 
       <activity-alias
-        android:name="com.example.MainActivitychecked"
+        android:name="com.example.reactnativechangeicon.MainActivitychecked"
         android:enabled="true"
         android:icon="@mipmap/checked"
         android:targetActivity=".MainActivity">
@@ -35,7 +35,7 @@
       </activity-alias>
 
       <activity-alias
-        android:name="com.example.MainActivitycancel"
+        android:name="com.example.reactnativechangeicon.MainActivitycancel"
         android:enabled="false"
         android:icon="@mipmap/cancel"
         android:targetActivity=".MainActivity">

@@ -9,36 +9,36 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.Promise
 
-class ChangeIconModule(reactContext: ReactApplicationContext, packageName: string) : ReactContextBaseJavaModule(reactContext) {
-    var componentClass: String
+class ChangeIconModule(reactContext: ReactApplicationContext, private val packageName: String) : ReactContextBaseJavaModule(reactContext) {
+    private var componentClass: String = ""
     override fun getName(): String {
         return "ChangeIcon"
     }
 
     @ReactMethod
     fun changeIcon(enableIcon: String, promise: Promise) {
-        val activity: Activity = getCurrentActivity()
-        if (activity == null || enableIcon == null || enableIcon.isEmpty()) {
+        val activity: Activity? = currentActivity
+        if (activity == null || enableIcon.isEmpty()) {
             promise.reject("Icon string is empty.")
             return
         }
-        if (componentClass == null) componentClass = activity.getComponentName().getClassName()
-        var activeClass: String = packageName + ".MainActivity" + enableIcon
-        if (componentClass.equals(activeClass)) {
+        if (componentClass.isEmpty()) componentClass = activity.componentName.className
+        val activeClass = "$packageName.MainActivity$enableIcon"
+        if (componentClass == activeClass) {
             promise.reject("Icon already in use.")
             return
         }
         promise.resolve(true)
-        activity.getPackageManager().setComponentEnabledSetting(
-                new ComponentName(packageName, activeClass),
+        activity.packageManager.setComponentEnabledSetting(
+                ComponentName(packageName, activeClass),
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP
-        );
-        activity.getPackageManager().setComponentEnabledSetting(
-                new ComponentName(packageName, componentClass),
+        )
+        activity.packageManager.setComponentEnabledSetting(
+                ComponentName(packageName, componentClass),
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                 PackageManager.DONT_KILL_APP
-        );
-        componentClass = activeClass;
+        )
+        componentClass = activeClass
     }
 }
