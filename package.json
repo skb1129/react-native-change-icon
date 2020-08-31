@@ -1,6 +1,6 @@
 {
   "name": "react-native-change-icon",
-  "version": "3.0.0-beta.1",
+  "version": "3.0.0",
   "description": "Change application icon programmatically in React-Native.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -14,6 +14,7 @@
     "ios",
     "cpp",
     "react-native-change-icon.podspec",
+    "react-native.config.js",
     "!lib/typescript/example",
     "!**/__tests__",
     "!**/__fixtures__",
