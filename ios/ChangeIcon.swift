@@ -13,7 +13,12 @@ class ChangeIcon: NSObject {
             reject("Error", "Icon already in use", nil)
             return
         }
-        resolve(true)
-        UIApplication.shared.setAlternateIconName(iconName)
+        UIApplication.shared.setAlternateIconName(iconName, completionHandler: { (error) -> Void in
+            if error == nil {
+                resolve(true)
+            } else {
+                reject("Error", "Unable to change the icon", error)
+            }
+        })
     }
 }
