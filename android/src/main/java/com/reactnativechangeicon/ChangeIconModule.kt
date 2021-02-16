@@ -1,8 +1,10 @@
 package com.reactnativechangeicon
 
 import android.app.Activity
+import android.app.Activity
 import android.content.pm.PackageManager
 import android.content.ComponentName
+import android.os.Bundle
 
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
@@ -11,7 +13,6 @@ import com.facebook.react.bridge.Promise
 
 class ChangeIconModule(reactContext: ReactApplicationContext, private val packageName: String) : ReactContextBaseJavaModule(reactContext), Application.ActivityLifecycleCallbacks {
     private var classToKill: String = ""
-    private var componentClass: String = ""
     private var iconChanged: Boolean = false;
     private var componentClass: String = ""
     override fun getName(): String {
