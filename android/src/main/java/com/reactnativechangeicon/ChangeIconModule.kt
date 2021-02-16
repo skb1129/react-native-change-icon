@@ -9,7 +9,10 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.Promise
 
-class ChangeIconModule(reactContext: ReactApplicationContext, private val packageName: String) : ReactContextBaseJavaModule(reactContext) {
+class ChangeIconModule(reactContext: ReactApplicationContext, private val packageName: String) : ReactContextBaseJavaModule(reactContext), Application.ActivityLifecycleCallbacks {
+    private var classToKill: String = ""
+    private var componentClass: String = ""
+    private var iconChanged: Boolean = false;
     private var componentClass: String = ""
     override fun getName(): String {
         return "ChangeIcon"
@@ -30,15 +33,52 @@ class ChangeIconModule(reactContext: ReactApplicationContext, private val packag
         }
         promise.resolve(true)
         activity.packageManager.setComponentEnabledSetting(
-                ComponentName(packageName, activeClass),
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP
+            ComponentName(packageName, activeClass),
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+            PackageManager.DONT_KILL_APP
         )
         activity.packageManager.setComponentEnabledSetting(
-                ComponentName(packageName, componentClass),
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP
+            ComponentName(packageName, componentClass),
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            PackageManager.DONT_KILL_APP
         )
         componentClass = activeClass
+    }
+
+    private fun completeIconChange() {
+        if (iconChanged) {
+          val activity: Activity? = currentActivity
+          if (activity == null) {
+            return
+          }
+          activity.packageManager.setComponentEnabledSetting(
+            ComponentName(packageName, classToKill),
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            PackageManager.DONT_KILL_APP
+          )
+          iconChanged = false;
+        }
+    }
+
+    override fun onActivityPaused(activity: Activity) {
+        completeIconChange();
+    }
+
+    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+    }
+
+    override fun onActivityStarted(activity: Activity) {
+    }
+
+    override fun onActivityResumed(activity: Activity) {
+    }
+
+    override fun onActivityStopped(activity: Activity) {
+    }
+
+    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
+    }
+
+    override fun onActivityDestroyed(activity: Activity) {
     }
 }
