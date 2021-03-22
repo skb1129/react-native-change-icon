@@ -38,12 +38,10 @@ class ChangeIconModule(reactContext: ReactApplicationContext, private val packag
             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
             PackageManager.DONT_KILL_APP
         )
-        activity.packageManager.setComponentEnabledSetting(
-            ComponentName(packageName, componentClass),
-            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-            PackageManager.DONT_KILL_APP
-        )
+        classToKill = componentClass;
         componentClass = activeClass
+        activity.application.registerActivityLifecycleCallbacks(this)
+        iconChanged = true;
     }
 
     private fun completeIconChange() {
