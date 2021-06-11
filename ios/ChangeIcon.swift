@@ -21,4 +21,8 @@ class ChangeIcon: NSObject {
         resolve(true)
         UIApplication.shared.setAlternateIconName(iconName)
     }
+
+    @objc static func requiresMainQueueSetup() -> Bool {
+        return false
+    }
 }
