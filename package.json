@@ -1,6 +1,6 @@
 {
   "name": "react-native-change-icon",
-  "version": "3.1.2",
+  "version": "3.2.0",
   "description": "Change application icon programmatically in React-Native.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
