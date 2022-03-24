@@ -32,12 +32,17 @@ class ChangeIconModule(reactContext: ReactApplicationContext, private val packag
             promise.reject("Icon already in use.")
             return
         }
-        promise.resolve(true)
-        activity.packageManager.setComponentEnabledSetting(
-            ComponentName(packageName, activeClass),
-            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-            PackageManager.DONT_KILL_APP
-        )
+        try {
+            activity.packageManager.setComponentEnabledSetting(
+                ComponentName(packageName, activeClass),
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP
+            )
+            promise.resolve(true)
+        } catch (e: Exception) {
+            promise.reject("Invalid Icon")
+            return
+        }
         classesToKill.add(componentClass)
         componentClass = activeClass
         activity.application.registerActivityLifecycleCallbacks(this)
