@@ -108,10 +108,17 @@ protected List<ReactPackage> getPackages() {
 Now you can use the following code to change application icon:
 
 ```javascript
-import { changeIcon } from 'react-native-change-icon';
+import { changeIcon, getCurrentIcon, isAvailable } from 'react-native-change-icon';
 
 // Pass the name of icon to be enabled
 changeIcon('iconname');
+
+// Only iOS. Gets the application's current icon name
+getCurrentIcon();
+
+// Only iOS. Determines if the platform has the capabilities to use `changeIcon`
+isAvailable();
+
 ```
 
 `changeIcon` function returns a promise. The promise is resolved only when the icon is changed.

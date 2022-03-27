@@ -23,4 +23,20 @@ class ChangeIcon: NSObject {
             UIApplication.shared.setAlternateIconName(iconName)
         }
     }
+    
+    @available(iOS 10.3, *)
+    @objc(getCurrentIcon:withRejecter:)
+    func getCurrentIcon(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+        var iconName: String? = nil
+        if UIApplication.shared.supportsAlternateIcons {
+            iconName = UIApplication.shared.alternateIconName
+        }
+        resolve(iconName);
+    }
+    
+    @available(iOS 10.3, *)
+    @objc(isAvailable:withRejecter:)
+    func isAvailable(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+        resolve(UIApplication.shared.supportsAlternateIcons)
+    }
 }
