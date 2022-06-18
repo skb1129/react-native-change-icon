@@ -4,7 +4,7 @@ class ChangeIcon: NSObject {
     @objc
     static func requiresMainQueueSetup() -> Bool {
         return false
-    }
+     }
 
     @available(iOS 10.3, *)
     @objc(changeIcon:withResolver:withRejecter:)
@@ -21,6 +21,12 @@ class ChangeIcon: NSObject {
             }
             resolve(true)
             UIApplication.shared.setAlternateIconName(iconName)
+        }
+    }
+    @objc(getIcon:withResolver:withRejecter:)
+    func getIcon(unused: String?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock)->Void{
+        DispatchQueue.main.async {
+            resolve(UIApplication.shared.alternateIconName == nil ? "default" : UIApplication.shared.alternateIconName)
         }
     }
 }

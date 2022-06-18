@@ -1,6 +1,10 @@
-import { NativeModules } from 'react-native';
+import {NativeModules, Platform} from 'react-native';
 
 const changeIcon = (iconName: string): Promise<string> =>
   NativeModules.ChangeIcon.changeIcon(iconName);
 
-export { changeIcon };
+const getIcon = (): Promise<any> => {
+    return Platform.OS == 'ios' ? NativeModules.ChangeIcon.getIcon('') : NativeModules.ChangeIcon.getIcon()
+}
+
+export { changeIcon, getIcon };
