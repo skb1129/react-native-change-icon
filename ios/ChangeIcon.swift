@@ -24,7 +24,7 @@ class ChangeIcon: NSObject {
         }
     }
     @objc(getIcon:withResolver:withRejecter:)
-    func getIcon(unused: String?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock)->Void{
+    func getIcon(_ resolve: @escaping RCTPromiseResolveBlock, withRejecter reject: @escaping RCTPromiseRejectBlock)->Void{
         DispatchQueue.main.async {
             resolve(UIApplication.shared.alternateIconName == nil ? "default" : UIApplication.shared.alternateIconName)
         }
