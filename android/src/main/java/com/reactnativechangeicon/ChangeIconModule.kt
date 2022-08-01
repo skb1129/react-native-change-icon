@@ -12,11 +12,29 @@ import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.Promise
 
 class ChangeIconModule(reactContext: ReactApplicationContext, private val packageName: String) : ReactContextBaseJavaModule(reactContext), Application.ActivityLifecycleCallbacks {
-    private var classesToKill: MutableList<String> = mutableListOf<String>()
-    private var iconChanged: Boolean = false;
+    private var classesToKill: MutableList<String> = mutableListOf()
+    private var iconChanged: Boolean = false
     private var componentClass: String = ""
     override fun getName(): String {
         return "ChangeIcon"
+    }
+
+    @ReactMethod
+    fun getIcon(promise: Promise){
+        val activity: Activity? = currentActivity
+        if (activity == null) {
+            promise.reject("activity is null")
+            return
+        }
+        if (componentClass.isEmpty()) componentClass = activity.componentName.className
+
+        var act = componentClass.split("MainActivity")[1]
+        if(act.isEmpty()){
+            promise.resolve("default")
+        } else {
+            promise.resolve(act)
+        }
+        return
     }
 
     @ReactMethod
@@ -32,7 +50,7 @@ class ChangeIconModule(reactContext: ReactApplicationContext, private val packag
             promise.reject("Icon already in use.")
             return
         }
-        try {
+        try{
             activity.packageManager.setComponentEnabledSetting(
                 ComponentName(packageName, activeClass),
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
@@ -46,16 +64,13 @@ class ChangeIconModule(reactContext: ReactApplicationContext, private val packag
         classesToKill.add(componentClass)
         componentClass = activeClass
         activity.application.registerActivityLifecycleCallbacks(this)
-        iconChanged = true;
+        iconChanged = true
     }
 
     private fun completeIconChange() {
         if (iconChanged) {
-          val activity: Activity? = currentActivity
-          if (activity == null) {
-            return
-          }
-          classesToKill.forEach {
+          val activity: Activity = currentActivity ?: return
+            classesToKill.forEach {
             activity.packageManager.setComponentEnabledSetting(
                 ComponentName(packageName, it),
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
@@ -63,12 +78,12 @@ class ChangeIconModule(reactContext: ReactApplicationContext, private val packag
             )
           }
           classesToKill.clear()
-          iconChanged = false;
+          iconChanged = false
         }
     }
 
     override fun onActivityPaused(activity: Activity) {
-        completeIconChange();
+        completeIconChange()
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
