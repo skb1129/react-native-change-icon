@@ -117,6 +117,6 @@ changeIcon('iconname');
 getIcon();
 ```
 
-`changeIcon` function returns a promise. The promise is resolved only when the icon is changed.
+`changeIcon` function returns a promise. The promise is resolved only when the icon is changed.\
 `getIcon` function returns `Promise<string>` with the name of the selected icon or "default" if default icon is selected
 **Please refer to the example app for demo on implementation**
