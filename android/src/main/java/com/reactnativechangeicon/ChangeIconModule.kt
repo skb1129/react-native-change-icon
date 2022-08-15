@@ -82,8 +82,7 @@ class ChangeIconModule(reactContext: ReactApplicationContext, private val packag
         }
     }
 
-    override fun onActivityPaused(activity: Activity) {
-        completeIconChange()
+    override fun onActivityPaused(activity: Activity) { 
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
@@ -96,6 +95,8 @@ class ChangeIconModule(reactContext: ReactApplicationContext, private val packag
     }
 
     override fun onActivityStopped(activity: Activity) {
+        // Note: We need to complete icon change onActivityStopped because app crashes on request permissions after change icon on activity.
+        completeIconChange()
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
