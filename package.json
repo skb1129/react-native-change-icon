@@ -1,18 +1,18 @@
 {
   "name": "react-native-change-icon",
   "title": "React Native Change Icon",
-  "version": "4.0.0",
+  "version": "4.0.0-beta.1",
   "description": "Change application icon programmatically in React-Native.",
   "main": "index.js",
   "source": "index.js",
   "react-native": "index.js",
   "files": [
-    "README.md",
     "android",
-    "index.js",
     "ios",
+    "index.js",
     "react-native-change-icon.podspec",
-    "react-native.config.js"
+    "react-native.config.js",
+    "README.md"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
