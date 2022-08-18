@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.example.reactnativechangeicon">
+  package="com.example">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -7,25 +7,15 @@
       android:name=".MainApplication"
       android:label="@string/app_name"
       android:icon="@mipmap/checked"
-      android:resizeableActivity="false"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
-      <activity
-        android:name=".MainActivity"
-        android:label="@string/app_name"
-        android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
-        android:exported="true"
-        android:launchMode="singleTask"
-        android:windowSoftInputMode="adjustResize">
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
-      </activity>
+
+      <activity android:name=".MainActivity" />
 
       <activity-alias
-        android:name="com.example.reactnativechangeicon.MainActivitychecked"
+        android:name="com.example.MainActivitychecked"
         android:enabled="true"
+        android:exported="true"
         android:icon="@mipmap/checked"
         android:targetActivity=".MainActivity">
         <intent-filter>
@@ -35,8 +25,9 @@
       </activity-alias>
 
       <activity-alias
-        android:name="com.example.reactnativechangeicon.MainActivitycancel"
+        android:name="com.example.MainActivitycancel"
         android:enabled="false"
+        android:exported="true"
         android:icon="@mipmap/cancel"
         android:targetActivity=".MainActivity">
         <intent-filter>
@@ -44,7 +35,6 @@
           <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity-alias>
-      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-    </application>
 
+    </application>
 </manifest>
