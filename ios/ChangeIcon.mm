@@ -1,7 +1,10 @@
 #import "ChangeIcon.h"
 
-@implementation ChangeIcon
+#ifdef RCT_NEW_ARCH_ENABLED
+#import "RNChangeIconSpec.h"
+#endif
 
+@implementation ChangeIcon
 RCT_EXPORT_MODULE()
 
 + (BOOL)requiresMainQueueSetup {
@@ -42,5 +45,14 @@ RCT_REMAP_METHOD(changeIcon, iconName:(NSString *)iconName resolver:(RCTPromiseR
         }];
     });
 }
+
+// Don't compile this code when we build for the old architecture.
+#ifdef RCT_NEW_ARCH_ENABLED
+- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
+    (const facebook::react::ObjCTurboModule::InitParams &)params
+{
+    return std::make_shared<facebook::react::NativeChangeIconSpecJSI>(params);
+}
+#endif
 
 @end

@@ -4,6 +4,8 @@
   "version": "4.0.0",
   "description": "Change application icon programmatically in React-Native.",
   "main": "index.js",
+  "source": "index.js",
+  "react-native": "index.js",
   "files": [
     "README.md",
     "android",
@@ -15,22 +17,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/skb1129/react-native-change-icon.git",
-    "baseUrl": "https://github.com/skb1129/react-native-change-icon"
-  },
   "keywords": [
-    "react-native"
+    "react-native",
+    "ios",
+    "android"
   ],
-  "author": {
-    "name": "Surya Kant Bansal",
-    "email": "suryakantbansal97@gmail.com"
-  },
+  "repository": "https://github.com/skb1129/react-native-change-icon",
+  "author": "Surya Kant Bansal <suryakantbansal97@gmail.com> (https://github.com/skb1129)",
   "license": "MIT",
-  "licenseFilename": "LICENSE",
-  "readmeFilename": "README.md",
   "peerDependencies": {
-    "react-native": ">=0.60.0-rc.0 <1.0.x"
+    "react-native": "*"
   }
 }

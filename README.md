@@ -56,6 +56,7 @@ Change Application Icon Programmatically.
 		<activity-alias
 			android:name="com.example.MainActivitychecked"
 			android:enabled="true"
+			android:exported="true"
 			android:icon="@mipmap/checked"
 			android:targetActivity=".MainActivity">
 			<intent-filter>
@@ -67,6 +68,7 @@ Change Application Icon Programmatically.
 		<activity-alias
 			android:name="com.example.MainActivitycancel"
 			android:enabled="false"
+			android:exported="true"
 			android:icon="@mipmap/cancel"
 			android:targetActivity=".MainActivity">
 			<intent-filter>

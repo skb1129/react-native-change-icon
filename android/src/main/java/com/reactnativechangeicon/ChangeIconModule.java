@@ -1,18 +1,26 @@
 package com.reactnativechangeicon;
 
+import androidx.annotation.NonNull;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.pm.PackageManager;
 import android.content.ComponentName;
 import android.os.Bundle;
 
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Promise;
+import com.facebook.react.module.annotations.ReactModule;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+@ReactModule(name = ChangeIconModule.NAME)
 public class ChangeIconModule extends ReactContextBaseJavaModule implements Application.ActivityLifecycleCallbacks {
-    private final ReactApplicationContext reactContext;
+    public static final String NAME = "ChangeIcon";
     private final String packageName;
     private List<String> classesToKill = new ArrayList<>();
     private Boolean iconChanged = false;
@@ -20,13 +28,13 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
 
     public ChangeIconModule(ReactApplicationContext reactContext, String packageName) {
         super(reactContext);
-        this.reactContext = reactContext;
         this.packageName = packageName;
     }
 
     @Override
+    @NonNull
     public String getName() {
-        return "ChangeIcon";
+        return NAME;
     }
 
     @ReactMethod
@@ -94,31 +102,31 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
     }
 
     @Override
-    private void onActivityPaused(Activity activity) {
+    public void onActivityPaused(Activity activity) {
         completeIconChange();
     }
 
     @Override
-    private void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
     }
 
     @Override
-    private void onActivityStarted(Activity activity) {
+    public void onActivityStarted(Activity activity) {
     }
 
     @Override
-    private void onActivityResumed(Activity activity) {
+    public void onActivityResumed(Activity activity) {
     }
 
     @Override
-    private void onActivityStopped(Activity activity) {
+    public void onActivityStopped(Activity activity) {
     }
 
     @Override
-    private void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
     }
 
     @Override
-    private void onActivityDestroyed(Activity activity) {
+    public void onActivityDestroyed(Activity activity) {
     }
 }
