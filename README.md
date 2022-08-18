@@ -1,4 +1,3 @@
-
 # React Native Change Icon
 
 [![npm version](https://badge.fury.io/js/react-native-change-icon.svg)](https://badge.fury.io/js/react-native-change-icon)
@@ -9,11 +8,7 @@ Change Application Icon Programmatically.
 
 ## Getting started
 
-`$ yarn add react-native-change-icon`
-
-### Automatic installation
-
-`$ react-native link react-native-change-icon`
+`$ npm i react-native-change-icon`
 
 ## Usage
 
@@ -80,28 +75,12 @@ Change Application Icon Programmatically.
 			</intent-filter>
 		</activity-alias>
 
-		<activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-
 	</application>
 
 </manifest>
 ```
 You can create more `<activity-alias>` tags to make more alternate icons.
 *Note that the name in <activity-alias> should be "com.{package_name}.MainActivity%", where `%` is the icon name.*
-
-**NOTE: Steps 3 & 4 only required for React-Native Version < 60**
-
-3. Open the `MainApplication.java` file.
-4. Pass `BuildConfig.APPLICATION_ID` to `new ChangeIconPackage()` inside the `getPackages()` function.
-```java
-@Override
-protected List<ReactPackage> getPackages() {
-    @SuppressWarnings("UnnecessaryLocalVariable")
-    List<ReactPackage> packages = new PackageList(this).getPackages();
-    packages.add(new ChangeIconPackage(BuildConfig.APPLICATION_ID))
-    return packages;
-}
-```
 
 **Note that all the icon names must be in lowercase and only limited to alphabets `a-z`**
 
@@ -113,10 +92,12 @@ import { changeIcon, getIcon } from 'react-native-change-icon';
 // Pass the name of icon to be enabled
 changeIcon('iconname');
 
-//or get currently selected icon
+// Get the icon currently enabled
 getIcon();
 ```
 
-`changeIcon` function returns a promise. The promise is resolved only when the icon is changed.\
-`getIcon` function returns `Promise<string>` with the name of the selected icon or "default" if default icon is selected
+`changeIcon` function returns a `Promise<string>`. The promise is resolved only when the icon is changed.
+
+`getIcon` function returns `Promise<string>` with the name of the selected icon or "default" if default icon is selected.
+
 **Please refer to the example app for demo on implementation**

@@ -1,8 +1,46 @@
-#import <React/RCTBridgeModule.h>
+#import "ChangeIcon.h"
 
-@interface RCT_EXTERN_MODULE(ChangeIcon, NSObject)
+@implementation ChangeIcon
 
-RCT_EXTERN_METHOD(changeIcon:(NSString *)iconName withResolver:(RCTPromiseResolveBlock)resolve withRejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_MODULE()
 
-RCT_EXTERN_METHOD(getIcon: (RCTPromiseResolveBlock)resolve withRejecter:(RCTPromiseRejectBlock)reject)
++ (BOOL)requiresMainQueueSetup {
+    return NO;
+}
+
+RCT_REMAP_METHOD(getIcon, resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *currentIcon = [[UIApplication sharedApplication] alternateIconName];
+        if (currentIcon) {
+            resolve(currentIcon);
+        } else {
+            resolve(@"default");
+        }
+    });
+}
+
+RCT_REMAP_METHOD(changeIcon, iconName:(NSString *)iconName resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSError *error = nil;
+
+        if ([[UIApplication sharedApplication] supportsAlternateIcons] == NO) {
+            reject(@"Error", @"NOT_SUPPORTED", error);
+            return;
+        }
+
+        NSString *currentIcon = [[UIApplication sharedApplication] alternateIconName];
+
+        if ([iconName isEqualToString:currentIcon]) {
+            reject(@"Error", @"ICON_ALREADY_USED", error);
+            return;
+        }
+
+        resolve(iconName);
+
+        [[UIApplication sharedApplication] setAlternateIconName:iconName completionHandler:^(NSError * _Nullable error) {
+            return;
+        }];
+    });
+}
+
 @end

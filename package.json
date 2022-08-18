@@ -1,143 +1,36 @@
 {
   "name": "react-native-change-icon",
-  "version": "3.2.0",
+  "title": "React Native Change Icon",
+  "version": "4.0.0",
   "description": "Change application icon programmatically in React-Native.",
-  "main": "lib/commonjs/index",
-  "module": "lib/module/index",
-  "types": "lib/typescript/src/index.d.ts",
-  "react-native": "src/index",
-  "source": "src/index",
+  "main": "index.js",
   "files": [
-    "src",
-    "lib",
+    "README.md",
     "android",
+    "index.js",
     "ios",
-    "cpp",
     "react-native-change-icon.podspec",
-    "react-native.config.js",
-    "!lib/typescript/example",
-    "!**/__tests__",
-    "!**/__fixtures__",
-    "!**/__mocks__"
+    "react-native.config.js"
   ],
   "scripts": {
-    "test": "echo \"No tests available\" && exit 0",
-    "typescript": "tsc --noEmit",
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "prepare": "husky install && bob build",
-    "release": "release-it",
-    "example": "yarn --cwd example",
-    "pods": "cd example && pod-install --quiet",
-    "bootstrap": "yarn example && yarn && yarn pods"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skb1129/react-native-change-icon.git",
+    "baseUrl": "https://github.com/skb1129/react-native-change-icon"
   },
   "keywords": [
-    "react-native",
-    "ios",
-    "android"
+    "react-native"
   ],
-  "repository": "https://github.com/skb1129/react-native-change-icon",
-  "author": "Surya Kant Bansal <suryakantbansal97@gmail.com> (https://github.com/skb1129)",
+  "author": {
+    "name": "Surya Kant Bansal",
+    "email": "suryakantbansal97@gmail.com"
+  },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/skb1129/react-native-change-icon/issues"
-  },
-  "homepage": "https://github.com/skb1129/react-native-change-icon#readme",
-  "devDependencies": {
-    "@commitlint/config-conventional": "^12.1.4",
-    "@react-native-community/bob": "^0.17.1",
-    "@react-native-community/eslint-config": "^2.0.0",
-    "@release-it/conventional-changelog": "^2.0.1",
-    "@types/jest": "^26.0.23",
-    "@types/react": "^17.0.8",
-    "@types/react-native": "0.64.8",
-    "commitlint": "^12.1.4",
-    "eslint": "^7.27.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "husky": "^6.0.0",
-    "jest": "^27.0.3",
-    "pod-install": "^0.1.23",
-    "prettier": "^2.3.0",
-    "react": "16.11.0",
-    "react-native": "0.62.2",
-    "release-it": "^14.7.0",
-    "typescript": "^4.3.2"
-  },
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
   "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
-  },
-  "jest": {
-    "preset": "react-native",
-    "modulePathIgnorePatterns": [
-      "<rootDir>/example/node_modules",
-      "<rootDir>/lib/"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "yarn lint && yarn typescript"
-    }
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "release-it": {
-    "git": {
-      "commitMessage": "chore: release ${version}",
-      "tagName": "v${version}"
-    },
-    "npm": {
-      "publish": true
-    },
-    "github": {
-      "release": true
-    },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "preset": "angular"
-      }
-    }
-  },
-  "eslintConfig": {
-    "extends": [
-      "@react-native-community",
-      "prettier"
-    ],
-    "rules": {
-      "prettier/prettier": [
-        "error",
-        {
-          "quoteProps": "consistent",
-          "singleQuote": true,
-          "tabWidth": 2,
-          "trailingComma": "es5",
-          "useTabs": false
-        }
-      ]
-    }
-  },
-  "eslintIgnore": [
-    "node_modules/",
-    "lib/"
-  ],
-  "prettier": {
-    "quoteProps": "consistent",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false
-  },
-  "@react-native-community/bob": {
-    "source": "src",
-    "output": "lib",
-    "targets": [
-      "commonjs",
-      "module",
-      "typescript"
-    ]
+    "react-native": ">=0.60.0-rc.0 <1.0.x"
   }
 }
