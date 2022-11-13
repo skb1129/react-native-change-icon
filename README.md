@@ -92,10 +92,16 @@ Now you can use the following code to change application icon:
 import { changeIcon, getIcon } from 'react-native-change-icon';
 
 // Pass the name of icon to be enabled
-changeIcon('iconname');
+(async () => {
+   try {
+   	await changeIcon('iconname');
+   } catch (e) {
+		console.error(e)
+   }
 
-// Get the icon currently enabled
-getIcon();
+   // Get the icon currently enabled
+   const currentIconName = await getIcon();
+})()
 ```
 
 `changeIcon` function returns a `Promise<string>`. The promise is resolved only when the icon is changed.

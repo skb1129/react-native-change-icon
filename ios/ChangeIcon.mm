@@ -27,21 +27,23 @@ RCT_REMAP_METHOD(changeIcon, iconName:(NSString *)iconName resolver:(RCTPromiseR
         NSError *error = nil;
 
         if ([[UIApplication sharedApplication] supportsAlternateIcons] == NO) {
-            reject(@"Error", @"NOT_SUPPORTED", error);
+            reject(@"NOT_SUPPORTED", @"Alternate icon not supported", error);
             return;
         }
 
         NSString *currentIcon = [[UIApplication sharedApplication] alternateIconName];
 
         if ([iconName isEqualToString:currentIcon]) {
-            reject(@"Error", @"ICON_ALREADY_USED", error);
+            reject(@"ICON_ALREADY_USED", @"Icon already in use", error);
             return;
         }
 
-        resolve(iconName);
-
         [[UIApplication sharedApplication] setAlternateIconName:iconName completionHandler:^(NSError * _Nullable error) {
-            return;
+            if (error) {
+              reject(@"SYSTEM_ERROR", error.localizedDescription, error);
+            } else {
+              resolve(iconName);
+            }
         }];
     });
 }
