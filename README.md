@@ -25,11 +25,15 @@ Change Application Icon Programmatically.
 6. Add `CFBundleAlternateIcons` as a dictionary to the `Icon files (iOS 5)`, it is used for alternative icons.
 7. Add dictionaries under `CFBundleAlternateIcons` named as your icon names in **App Icons** group.
 8. For each dictionary, two properties, `UIPrerenderedIcon` and `CFBundleIconFiles` need to be configured.
-9. Set the type of `UIPrerenderedIcon` to `String` and its value to `NO`.
+9. Set the type of `UIPrerenderedIcon` to `Boolean` and its value to `NO`.
 10. Set the type of `CFBundleIconFiles` to `Array` and set its first key, `Item 0`'s type to `String` and its value to the corresponding icon names.
 11. After all these steps, your **Info.plist** file should look like:
 
 ![Info.plist](images/Info.plist.png)
+
+12. Enable `Include all app icon assets` under the General pane
+
+![App Icons Source](images/App_Icons_Source.jpg)
 
 #### Android
 
