@@ -3,12 +3,17 @@
 [![npm version](https://badge.fury.io/js/react-native-change-icon.svg)](https://badge.fury.io/js/react-native-change-icon)
 
 Change Application Icon Programmatically.
+
 - [x] iOS
 - [x] Android
 
 ## Getting started
 
 `$ npm i react-native-change-icon`
+
+## Link native code
+
+`$ cd ios && pod install`
 
 ## Usage
 
@@ -38,6 +43,7 @@ Change Application Icon Programmatically.
 ![Android Directory](images/Android_Icons.png)
 
 2. Modify your `AndroidManifest.xml` file's `<application>` tag as following:
+
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example">
@@ -81,18 +87,19 @@ Change Application Icon Programmatically.
 
 </manifest>
 ```
+
 You can create more `<activity-alias>` tags to make more alternate icons.
-*Note that the name in <activity-alias> should be "com.{package_name}.MainActivity%", where `%` is the icon name.*
+_Note that the name in <activity-alias> should be "com.{package_name}.MainActivity%", where `%` is the icon name._
 
 **Note that all the icon names must be in lowercase and only limited to alphabets `a-z`**
 
 Now you can use the following code to change application icon:
 
 ```javascript
-import { changeIcon, getIcon } from 'react-native-change-icon';
+import { changeIcon, getIcon } from "react-native-change-icon";
 
 // Pass the name of icon to be enabled
-changeIcon('iconname');
+changeIcon("iconname");
 
 // Get the icon currently enabled
 getIcon();
