@@ -38,7 +38,7 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
     }
 
     @ReactMethod
-    public void getIcon(Promise promise){
+    public void getIcon(Promise promise) {
         final Activity activity = getCurrentActivity();
         if (activity == null) {
             promise.reject("ACTIVITY_NOT_FOUND");
@@ -47,8 +47,18 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
         if (this.componentClass.isEmpty()) {
             this.componentClass = activity.getComponentName().getClassName();
         }
-        String currentIcon = this.componentClass.split("MainActivity")[1];
-        promise.resolve(currentIcon.isEmpty() ? "default" : currentIcon);
+        if (this.componentClass.endsWith("MainActivity")) {
+            promise.resolve("default");
+            return;
+        }
+        String[] parts = this.componentClass.split("MainActivity");
+        if (parts.length != 2) {
+            promise.reject("UNEXPECTED_COMPONENT_CLASS: " + this.componentClass);
+            return;
+        }
+
+        String currentIcon = parts[1];
+        promise.resolve(currentIcon);
         return;
     }
 
@@ -59,7 +69,7 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
             promise.reject("ACTIVITY_NOT_FOUND");
             return;
         }
-        if (enableIcon.isEmpty()) {
+        if (enableIcon == null || enableIcon.isEmpty()) {
             promise.reject("EMPTY_ICON_STRING");
             return;
         }
@@ -73,10 +83,9 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
         }
         try {
             activity.getPackageManager().setComponentEnabledSetting(
-                new ComponentName(this.packageName, activeClass),
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP
-            );
+                    new ComponentName(this.packageName, activeClass),
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                    PackageManager.DONT_KILL_APP);
             promise.resolve(enableIcon);
         } catch (Exception e) {
             promise.reject("ICON_INVALID");
@@ -89,14 +98,15 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
     }
 
     private void completeIconChange() {
-        if (!iconChanged) return;
+        if (!iconChanged)
+            return;
         final Activity activity = getCurrentActivity();
-        if (activity == null) return;
+        if (activity == null)
+            return;
         classesToKill.forEach((cls) -> activity.getPackageManager().setComponentEnabledSetting(
-            new ComponentName(this.packageName, cls),
-            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-            PackageManager.DONT_KILL_APP
-        ));
+                new ComponentName(this.packageName, cls),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP));
         classesToKill.clear();
         iconChanged = false;
     }
