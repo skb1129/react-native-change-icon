@@ -8,7 +8,8 @@ var defaultIcon = function () { return react_native_1.Platform.select({
 }); };
 var changeIcon = function (iconName) { return react_native_1.NativeModules.ChangeIcon.changeIcon(iconName || defaultIcon()); };
 exports.changeIcon = changeIcon;
-exports.resetIcon = (0, exports.changeIcon)();
+var resetIcon = function () { return (0, exports.changeIcon)(); };
+exports.resetIcon = resetIcon;
 var getIcon = function () { return react_native_1.NativeModules.ChangeIcon.getIcon(); };
 exports.getIcon = getIcon;
 //# sourceMappingURL=index.js.map

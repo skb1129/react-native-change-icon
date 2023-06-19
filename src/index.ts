@@ -6,5 +6,5 @@ const defaultIcon = () => Platform.select({
 });
 
 export const changeIcon = (iconName?: string): Promise<string> => NativeModules.ChangeIcon.changeIcon(iconName || defaultIcon());
-export const resetIcon = changeIcon();
+export const resetIcon = () => changeIcon();
 export const getIcon = (): Promise<string> => NativeModules.ChangeIcon.getIcon();
