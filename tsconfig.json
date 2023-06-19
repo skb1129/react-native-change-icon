@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "outDir": "dist",
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "declaration": true,
+        "skipLibCheck": true
+    },
+    "files": ["src/index.ts"],
+    "exclude": ["node_modules"]
+}
