@@ -51,7 +51,18 @@ Change Application Icon Programmatically.
 		android:allowBackup="false"
 		android:theme="@style/AppTheme">
 
-		<activity android:name=".MainActivity" />
+		<activity 
+			android:name=".MainActivity"
+			android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+			android:launchMode="singleTask" 
+			android:windowSoftInputMode="adjustResize" 
+			android:exported="true"
+		>
+      			<intent-filter>
+        			<action android:name="android.intent.action.MAIN" />
+        			<category android:name="android.intent.category.LAUNCHER" />
+      			</intent-filter>
+    		</activity>
 
 		<activity-alias
 			android:name="com.example.MainActivitychecked"
