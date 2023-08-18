@@ -176,11 +176,11 @@
 
 
 ```javascript
-import { changeIcon, getIcon, resetIcon } from 'react-native-change-icon';
+import { setIcon, getIcon, resetIcon } from 'react-native-change-icon';
 
 // Pass the name of icon to be enabled
-changeIcon('Dark');
-changeIcon('Light');
+setIcon('Dark');
+setIcon('Light');
 
 // Get the icon currently enabled
 getIcon();
