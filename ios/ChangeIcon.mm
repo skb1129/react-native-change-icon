@@ -27,14 +27,14 @@ RCT_REMAP_METHOD(changeIcon, iconName:(NSString *)iconName resolver:(RCTPromiseR
         NSError *error = nil;
 
         if ([[UIApplication sharedApplication] supportsAlternateIcons] == NO) {
-            reject(@"Error", @"NOT_SUPPORTED", error);
+            reject(@"Error", @"IOS:NOT_SUPPORTED", error);
             return;
         }
 
         NSString *currentIcon = [[UIApplication sharedApplication] alternateIconName];
 
         if ([iconName isEqualToString:currentIcon]) {
-            reject(@"Error", @"ICON_ALREADY_USED", error);
+            reject(@"Error", @"IOS:ICON_ALREADY_USED", error);
             return;
         }
 
