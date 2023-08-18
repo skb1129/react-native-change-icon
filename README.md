@@ -74,20 +74,25 @@
 	</h3>
 </p>
 
-- You need to rename and sort these files slightly differently for both `iOS` and `Android`
+- You need to rename and sort these files slightly differently for both `iOS` and `Android` - I'd recommend keeping the default icon as the default name as this will make things easier for you.
 
 **Android 🤖**
 1. Simply just rename them to something appropriate - typically this follows the naming convention `ic_launcher_<type>.png` e.g. `ic_launcher_dark.png`
    - Make sure to keep them within the folder structure they are in `mpmap-hdpi`... etc.
 
+<div align="center">
+	<a href="./docs/examples/Step-3">Example Android Icon Sets</a>
+	<img src="docs/images/icons-example-exported-android.png" alt="Example Exported Android Icons">
+</div>
+
 **iOS 🍏**
 1. You will need the folder called `AppIcon.appiconset` as this contains your icons.
-2. Rename this folder a bt like above for android using a naming convention such as `AppIcon<type>.appiconset` e.g. `AppIconDark.appiconset`
-3. You will also need to edit the `Contents.json` to change and references to `AppIcon` to what you have renamed the file now e.g. `AppIconDark`
+2. Rename this folder a bit like above for android using a naming convention such as `AppIcon<type>.appiconset` e.g. `AppIconDark.appiconset`
+3. You will also need to edit the `Contents.json` to change and references from `AppIcon` to what you have renamed the file now e.g. `AppIconDark`
 
 <div align="center">
-	<a href="./docs/examples/Step-3">Example Icon Sets</a>
-	<img src="docs/images/icons-example-exported.png" alt="Example Exported Icons">
+	<a href="./docs/examples/Step-3">Example iOS Icon Sets</a>
+	<img src="docs/images/icons-example-exported.png" alt="Example Exported iOS Icons">
 </div>
 
 ---
