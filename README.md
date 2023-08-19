@@ -74,24 +74,25 @@
 	</h3>
 </p>
 
-- You need to rename and sort these files slightly differently for both `iOS` and `Android` - I'd recommend keeping the default icon as the default name as this will make things easier for you.
+- You need to rename and sort these files slightly differently for both `iOS` and `Android`.
 
 **Android 🤖**
 1. Simply just rename them to something appropriate - typically this follows the naming convention `ic_launcher_<type>.png` e.g. `ic_launcher_dark.png`
-   - Make sure to keep them within the folder structure they are in `mpmap-hdpi`... etc.
+   - Make sure to keep them within the folder structure they are in `mipmap-hdpi`... etc.
+2. Create a single `android` directory with all the `mipmap-*` directories inside. Inside them place all your generated icons.
 
 <div align="center">
-	<a href="./docs/examples/Step-3">Example Android Icon Sets</a>
+	<a href="./docs/examples/Step-3/android">Example Android Icon Sets</a>
 	<img src="docs/images/icons-example-exported-android.png" alt="Example Exported Android Icons">
 </div>
 
 **iOS 🍏**
-1. You will need the folder called `AppIcon.appiconset` as this contains your icons.
-2. Rename this folder a bit like above for android using a naming convention such as `AppIcon<type>.appiconset` e.g. `AppIconDark.appiconset`
-3. You will also need to edit the `Contents.json` to change and references from `AppIcon` to what you have renamed the file now e.g. `AppIconDark`
+1. You will need the generated folder called `AppIcon.appiconset` as this contains your icons.
+2. Rename this folder a bit like above for Android using a naming convention such as `<type>.appiconset` e.g. `Dark.appiconset`
+3. You will also need to edit the `Contents.json` to change and references from `Assets.xcassets/AppIcon.appiconset` to what you have renamed the file now e.g. `Images.xcassets/AppIcon.appiconset`
 
 <div align="center">
-	<a href="./docs/examples/Step-3">Example iOS Icon Sets</a>
+	<a href="./docs/examples/Step-3/ios">Example iOS Icon Sets</a>
 	<img src="docs/images/icons-example-exported.png" alt="Example Exported iOS Icons">
 </div>
 
@@ -124,7 +125,7 @@
 **Android 🤖**
 1. Add an alias for each of your new icons within the `AndroidManifest.xml` (within `<application>`).
    - Make sure these have the properties as shown below.
-   - For the name prefix it `MainActivity...` followed by the name you will use to reference your icon. e.g. for our light icon we will use `com.myCompany.myApp.MainActivityLight` (replace `com.myCompany.myApp` with your package name)
+   - For the name prefix it `MainActivity...` followed by the name you will use to reference your icon. e.g. for our light icon we will use `com.myapp.MainActivityLight` (replace `com.myapp` with your package name)
 
 
 <div align="center">
@@ -133,7 +134,7 @@
 
 ```xml
 <activity-alias 
-	android:name="com.myCompany.myApp.MainActivityLight"
+	android:name="com.myapp.MainActivityLight"
 	android:enabled="false"
 	android:exported="true"
 	android:icon="@mipmap/ic_launcher_light"
@@ -161,7 +162,7 @@
 <dict>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>AppIconDark</string>
+		<string>Dark</string>
 	</array>
 	<key>UIPrerenderedIcon</key>
 	<false/>
@@ -175,7 +176,7 @@
 		Use the Icons
 	</h3>
 	<p align="center">
-		You can now use your icons and switch between them within react native 🎉
+		You can now use your icons and switch between them within React Native 🎉
 	</p>
 </p>
 

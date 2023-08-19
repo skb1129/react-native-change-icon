@@ -13,7 +13,7 @@ RCT_REMAP_METHOD(getIcon, resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCT
         if (currentIcon) {
             resolve(currentIcon);
         } else {
-            resolve(@"default");
+            resolve(@"Default");
         }
     });
 }
@@ -34,9 +34,16 @@ RCT_REMAP_METHOD(changeIcon, iconName:(NSString *)iconName resolver:(RCTPromiseR
             return;
         }
 
-        resolve(iconName);
+        NSString *newIconName;
+        if (iconName == nil || [iconName length] == 0 || [iconName isEqualToString:@"Default"]) {
+            newIconName = nil;
+            resolve(@"Default");
+        } else {
+            newIconName = iconName;
+            resolve(newIconName);
+        }
 
-        [[UIApplication sharedApplication] setAlternateIconName:iconName completionHandler:^(NSError * _Nullable error) {
+        [[UIApplication sharedApplication] setAlternateIconName:newIconName completionHandler:^(NSError * _Nullable error) {
             return;
         }];
     });

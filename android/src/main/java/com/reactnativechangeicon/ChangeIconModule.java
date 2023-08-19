@@ -48,7 +48,7 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
         final String activityName = activity.getComponentName().getClassName();
 
         if (activityName.endsWith("MainActivity")) {
-            promise.resolve("default");
+            promise.resolve("Default");
             return;
         }
         String[] activityNameSplit = activityName.split("MainActivity");
@@ -71,8 +71,8 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
         if (this.componentClass.isEmpty()) {
             this.componentClass = activity.getComponentName().getClassName();
         }
-        
-        final String newIconName = (iconName == null || iconName.isEmpty() || iconName.equals("default")) ? "" : iconName;
+
+        final String newIconName = (iconName == null || iconName.isEmpty() || iconName.equals("Default")) ? "" : iconName;
         final String activeClass = this.packageName + ".MainActivity" + newIconName;
         if (this.componentClass.equals(activeClass)) {
             promise.reject("ANDROID:ICON_ALREADY_USED:" + this.componentClass);
@@ -83,7 +83,7 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
                     new ComponentName(this.packageName, activeClass),
                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                     PackageManager.DONT_KILL_APP);
-            promise.resolve(newIconName);
+            promise.resolve(newIconName.isEmpty() ? "Default" : newIconName);
         } catch (Exception e) {
             promise.reject("ANDROID:ICON_INVALID");
             return;
