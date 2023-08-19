@@ -15,14 +15,13 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.module.annotations.ReactModule;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @ReactModule(name = "ChangeIcon")
 public class ChangeIconModule extends ReactContextBaseJavaModule implements Application.ActivityLifecycleCallbacks {
     public static final String NAME = "ChangeIcon";
     private final String packageName;
-    private List<String> classesToKill = new ArrayList<>();
+    private final List<String> classesToKill = new ArrayList<>();
     private Boolean iconChanged = false;
     private String componentClass = "";
 
@@ -69,10 +68,10 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
             return;
         }
         if (this.componentClass.isEmpty()) {
-            this.componentClass = activity.getComponentName().getClassName();
+            this.componentClass = activityName.endsWith("MainActivity") ? activityName + "Default" : activityName;
         }
 
-        final String newIconName = (iconName == null || iconName.isEmpty() || iconName.equals("Default")) ? "" : iconName;
+        final String newIconName = (iconName == null || iconName.isEmpty()) ? "Default" : iconName;
         final String activeClass = this.packageName + ".MainActivity" + newIconName;
         if (this.componentClass.equals(activeClass)) {
             promise.reject("ANDROID:ICON_ALREADY_USED:" + this.componentClass);
@@ -83,7 +82,7 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
                     new ComponentName(this.packageName, activeClass),
                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                     PackageManager.DONT_KILL_APP);
-            promise.resolve(newIconName.isEmpty() ? "Default" : newIconName);
+            promise.resolve(newIconName);
         } catch (Exception e) {
             promise.reject("ANDROID:ICON_INVALID");
             return;

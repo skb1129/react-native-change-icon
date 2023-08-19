@@ -125,7 +125,9 @@
 **Android 🤖**
 1. Add an alias for each of your new icons within the `AndroidManifest.xml` (within `<application>`).
    - Make sure these have the properties as shown below.
-   - For the name prefix it `MainActivity...` followed by the name you will use to reference your icon. e.g. for our light icon we will use `com.myapp.MainActivityLight` (replace `com.myapp` with your package name)
+   - Create an alias for `.MainActivityDefault` as well but for this, set `android:enabled="true"`.
+   - For the name prefix it `.MainActivity...` followed by the name you will use to reference your icon. e.g. for our light icon we will use `.MainActivityLight`
+2. You'll have to remove the `LAUNCHER` intent filter from the main `<activity>` as we have added the launcher in `.MainActivityDefault`.
 
 
 <div align="center">
@@ -134,7 +136,7 @@
 
 ```xml
 <activity-alias 
-	android:name="com.myapp.MainActivityLight"
+	android:name=".MainActivityLight"
 	android:enabled="false"
 	android:exported="true"
 	android:icon="@mipmap/ic_launcher_light"
@@ -151,8 +153,12 @@
 2. Within this dictionary add another key for `CFBundleAlternateIcons`
 3. Finally then within this dictionary you can add in the keys for you new icons
    - The `key` is the name you will reference from within code.
-   - Set the first array item to the name of the `.appiconset` we created earlier. 
+   - Set the first array item to the name of the `.appiconset` we created earlier.
+4. In XCode, in your app's `General` settings, under `App Icons and Launch Screen`, set "App Icon" to `Default` and check the "Include all app icon assets" checkbox below.
 
+<div align="center">
+	<img src="docs/ios-example-app-icon.png" alt="Example App Icons and Launch Screen">
+</div>
 <div align="center">
 	<a href="./docs/examples/Step-4/Info.plist">Example Info.plist</a>
 </div>

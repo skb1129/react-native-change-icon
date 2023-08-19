@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ChangeIconPackage implements ReactPackage {
-    private String packageName;
+    private final String packageName;
 
     public ChangeIconPackage(String packageName) {
         this.packageName = packageName;
