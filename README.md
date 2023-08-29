@@ -204,9 +204,9 @@ resetIcon();
 
 > All functions are typed and return a promise that either resolves successfully, or will reject with the error that has occurred.
 
-**react-native-push-notification**
+**react-native-push-notification and notifee**
 
-When using `react-native-push-notification`, notifications won't work as we are using `activity-alias`.
+When using `react-native-push-notification` or `notifee`, notifications won't work as we are using `activity-alias`.
 
 To fix this, you need to create a Java file for each of the `activity-alias` in your `AndroidManifest.xml`.
 
