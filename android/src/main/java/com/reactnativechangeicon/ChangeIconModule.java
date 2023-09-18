@@ -89,7 +89,6 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
         }
         this.classesToKill.add(this.componentClass);
         this.componentClass = activeClass;
-        this.classesToKill.removeIf(cls -> cls.equals(activeClass));
         activity.getApplication().registerActivityLifecycleCallbacks(this);
         iconChanged = true;
     }
@@ -100,6 +99,8 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
         final Activity activity = getCurrentActivity();
         if (activity == null)
             return;
+        
+        classesToKill.removeIf(cls -> cls.equals(componentClass));
         classesToKill.forEach((cls) -> activity.getPackageManager().setComponentEnabledSetting(
                 new ComponentName(this.packageName, cls),
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
