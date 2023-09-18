@@ -14,14 +14,14 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.module.annotations.ReactModule;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @ReactModule(name = "ChangeIcon")
 public class ChangeIconModule extends ReactContextBaseJavaModule implements Application.ActivityLifecycleCallbacks {
     public static final String NAME = "ChangeIcon";
     private final String packageName;
-    private final List<String> classesToKill = new ArrayList<>();
+    private final Set<String> classesToKill = new HashSet<>();
     private Boolean iconChanged = false;
     private String componentClass = "";
 
@@ -89,9 +89,9 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
         }
         this.classesToKill.add(this.componentClass);
         this.componentClass = activeClass;
+        this.classesToKill.removeIf(cls -> cls.equals(activeClass));
         activity.getApplication().registerActivityLifecycleCallbacks(this);
         iconChanged = true;
-        activity.finish();
     }
 
     private void completeIconChange() {
