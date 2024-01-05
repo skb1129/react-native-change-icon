@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.ComponentName;
 import android.os.Bundle;
@@ -23,7 +24,8 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
     private final String packageName;
     private final Set<String> classesToKill = new HashSet<>();
     private Boolean iconChanged = false;
-    private String componentClass = "";
+
+    private String _currentLaunchClassName = "";
 
     public ChangeIconModule(ReactApplicationContext reactContext, String packageName) {
         super(reactContext);
@@ -36,50 +38,71 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
         return NAME;
     }
 
+    public String getLaunchClassName() {
+        if (_currentLaunchClassName.isEmpty()) {
+            final Activity activity = getCurrentActivity();
+            final PackageManager packageManager = activity.getPackageManager();
+            String launchClassName = "";
+            try {
+                Intent intent = packageManager.getLaunchIntentForPackage(packageName);
+                _currentLaunchClassName = intent.resolveActivity(packageManager).getClassName();
+                if (_currentLaunchClassName.endsWith("Activity")) {
+                    _currentLaunchClassName = launchClassName + "Default";
+                }
+            } catch(Exception e) {
+                //
+            }
+        }
+        return _currentLaunchClassName;
+    }
+
+    public String getNewLaunchClassName(String iconName) {
+        String currentLaunchClassName = getLaunchClassName();
+        if (currentLaunchClassName.isEmpty()) {
+            return "";
+        }
+
+        String[] activityNameSplit = currentLaunchClassName.split("Activity");
+
+        return activityNameSplit[0] + "Activity" + iconName;
+    }
+
     @ReactMethod
     public void getIcon(Promise promise) {
-        final Activity activity = getCurrentActivity();
-        if (activity == null) {
+        String launchClassName = getLaunchClassName();
+
+        if (launchClassName.isEmpty()) {
             promise.reject("ANDROID:ACTIVITY_NOT_FOUND");
             return;
         }
 
-        final String activityName = activity.getComponentName().getClassName();
-
-        if (activityName.endsWith("MainActivity")) {
-            promise.resolve("Default");
-            return;
-        }
-        String[] activityNameSplit = activityName.split("MainActivity");
-        if (activityNameSplit.length != 2) {
-            promise.reject("ANDROID:UNEXPECTED_COMPONENT_CLASS:" + this.componentClass);
-            return;
-        }
+        String[] activityNameSplit = launchClassName.split("Activity");
         promise.resolve(activityNameSplit[1]);
-        return;
     }
 
     @ReactMethod
     public void changeIcon(String iconName, Promise promise) {
-        final Activity activity = getCurrentActivity();
-        final String activityName = activity.getComponentName().getClassName();
-        if (activity == null) {
+        Activity activity = getCurrentActivity();
+        String currentLaunchClassName = getLaunchClassName();
+
+        if (currentLaunchClassName.isEmpty()) {
             promise.reject("ANDROID:ACTIVITY_NOT_FOUND");
             return;
         }
-        if (this.componentClass.isEmpty()) {
-            this.componentClass = activityName.endsWith("MainActivity") ? activityName + "Default" : activityName;
-        }
 
         final String newIconName = (iconName == null || iconName.isEmpty()) ? "Default" : iconName;
-        final String activeClass = this.packageName + ".MainActivity" + newIconName;
-        if (this.componentClass.equals(activeClass)) {
-            promise.reject("ANDROID:ICON_ALREADY_USED:" + this.componentClass);
+        final String newLaunchClassName = getNewLaunchClassName(newIconName);
+        if (newLaunchClassName.isEmpty()) {
+            promise.reject("ANDROID:ACTIVITY_NOT_FOUND");
+            return;
+        }
+        if (currentLaunchClassName.equals(newLaunchClassName)) {
+            promise.reject("ANDROID:ICON_ALREADY_USED:" + currentLaunchClassName);
             return;
         }
         try {
             activity.getPackageManager().setComponentEnabledSetting(
-                    new ComponentName(this.packageName, activeClass),
+                    new ComponentName(this.packageName, newLaunchClassName),
                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                     PackageManager.DONT_KILL_APP);
             promise.resolve(newIconName);
@@ -87,8 +110,8 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
             promise.reject("ANDROID:ICON_INVALID");
             return;
         }
-        this.classesToKill.add(this.componentClass);
-        this.componentClass = activeClass;
+        this.classesToKill.add(currentLaunchClassName);
+        this._currentLaunchClassName = newLaunchClassName;
         activity.getApplication().registerActivityLifecycleCallbacks(this);
         iconChanged = true;
     }
@@ -99,8 +122,7 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
         final Activity activity = getCurrentActivity();
         if (activity == null)
             return;
-        
-        classesToKill.remove(componentClass);
+        classesToKill.remove(this._currentLaunchClassName);
         classesToKill.forEach((cls) -> activity.getPackageManager().setComponentEnabledSetting(
                 new ComponentName(this.packageName, cls),
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
