@@ -43,9 +43,35 @@ RCT_REMAP_METHOD(changeIcon, iconName:(NSString *)iconName resolver:(RCTPromiseR
             resolve(newIconName);
         }
 
-        [[UIApplication sharedApplication] setAlternateIconName:newIconName completionHandler:^(NSError * _Nullable error) {
-            return;
-        }];
+        UIApplication *sharedApplication = [UIApplication sharedApplication];
+         
+        if ([sharedApplication respondsToSelector:@selector(supportsAlternateIcons)] &&
+             [sharedApplication supportsAlternateIcons]) {
+             
+             NSMutableString *selectorString = [[NSMutableString alloc] initWithCapacity:40];
+             [selectorString appendString:@"_setAlternate"];
+             [selectorString appendString:@"IconName:"];
+             [selectorString appendString:@"completionHandler:"];
+             
+             SEL selector = NSSelectorFromString(selectorString);
+             
+             if ([sharedApplication respondsToSelector:selector]) {
+                 NSMethodSignature *signature = [sharedApplication methodSignatureForSelector:selector];
+                 
+                 if (signature) {
+                     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+                     [invocation setTarget:sharedApplication];
+                     [invocation setSelector:selector];
+                     
+                     [invocation setArgument:&newIconName atIndex:2];
+                     
+                     void (^completionHandler)(NSError * _Nullable) = ^(NSError * _Nullable error) {};
+                     [invocation setArgument:&completionHandler atIndex:3];
+                     
+                     [invocation invoke];
+                 }
+             }
+        }
     });
 }
 
