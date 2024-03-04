@@ -84,7 +84,11 @@ public class ChangeIconModule extends ReactContextBaseJavaModule implements Appl
                     PackageManager.DONT_KILL_APP);
             promise.resolve(newIconName);
         } catch (Exception e) {
-            promise.reject("ANDROID:ICON_INVALID");
+            String errorMessage = "ANDROID:ICON_INVALID";
+            if (e != null) {
+                errorMessage += ": " + e.getMessage(); // Add exception message if available
+            }
+            promise.reject(errorMessage);
             return;
         }
         this.classesToKill.add(this.componentClass);
